@@ -1,0 +1,55 @@
+<!-- Title group  -->
+<div class="title-group  esp-up">
+  <h1 class="mat-h1">Gateways List</h1>
+  <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+<button class="button-new" mat-raised-button color="primary"  #tooltip="matTooltip"
+          matTooltip="New Gateway"
+          [matTooltipPosition]="position.value"
+          matTooltipHideDelay="100"
+          [routerLink]="['/new-gateway']">New</button>
+<p *ngIf="gatewayData.length <= 0" class="no-data">There is no gateway added yet!</p>
+
+<div class="container" *ngIf="gatewayData.length > 0">
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef> Gateway ID </th>
+        <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="serial">
+        <th mat-header-cell *matHeaderCellDef> Serial </th>
+        <td mat-cell *matCellDef="let element"> {{element.serial}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> IP Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element; let i = index;">          
+          <button mat-raised-button color="primary" class="push-right"
+          #tooltip="matTooltip"
+          matTooltip="Peripherals"
+          [matTooltipPosition]="position.value"
+          matTooltipHideDelay="100"
+            [routerLink]="['/view-peripherals-gateway', element._id]"><mat-icon>settings_input_composite</mat-icon></button>
+          <button mat-raised-button color="accent" (click)="deleteGateway(i, element)">Delete</button>          
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

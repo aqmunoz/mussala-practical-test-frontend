@@ -1,0 +1,8 @@
+.new-peripheral-form{
+    display: grid;
+    width: 30%;
+    align-content: center;
+    left: 35%;
+    position: absolute;
+    margin-top: 20px;
+}

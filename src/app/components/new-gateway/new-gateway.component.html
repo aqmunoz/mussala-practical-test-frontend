@@ -1,0 +1,51 @@
+<div class="new-gateway-form">
+    <div class="title-group  esp-up">
+        <h1 class="mat-h1">New Gateway</h1>
+        <mat-divider fxFlex="1 0"></mat-divider>
+    </div>
+
+
+    <form [formGroup]="gatewayForm" (ngSubmit)="submitGatewayForm()" #resetGatewayForm="ngForm" novalidate>
+        <!-- Left block -->
+        <mat-card>
+        <div class="controlers-wrapper">
+            <!-- Name -->
+            <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error *ngIf="handleError('name', 'required')">
+                You must provide a<strong>Name</strong>
+            </mat-error>
+            </mat-form-field>
+
+            <!-- Serial -->
+            <mat-form-field class="example-full-width">
+            <input matInput placeholder="Serial" formControlName="serial" type="number">
+            <mat-error *ngIf="handleError('serial', 'required')">
+                You must provide a<strong>Serial</strong>
+            </mat-error>
+            </mat-form-field>
+
+            <!-- IP Address -->
+            <mat-form-field class="example-full-width">
+            <input matInput placeholder="IP Address (V4)" formControlName="address">
+            <mat-error *ngIf="handleError('address', 'required')">
+                You must provide a<strong>IP address</strong>
+            </mat-error>
+            </mat-form-field>
+        </div>
+        </mat-card>
+        <!-- Submit & Reset -->
+        <mat-card>
+        <div class="full-wrapper button-wrapper">
+            <div class="button-wrapper">
+            <button mat-flat-button color="warn">Submit</button>
+            <button class="pull-right" mat-raised-button color="accent" 
+                    #tooltip="matTooltip"
+                    matTooltip="Return to list"
+                    [matTooltipPosition]="position.value"
+                    matTooltipHideDelay="100" [routerLink]="['/gateways']" >List</button>          
+            </div>
+        </div>
+        </mat-card>
+    </form>    
+</div>

@@ -1,0 +1,68 @@
+<!-- Title group  -->
+<div class="title-group  esp-up">
+  <h1 class="mat-h1">Peripheral List</h1>
+  <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+<div *ngIf="gateway != undefined" style="margin-left: 10px;">
+
+    <h4><b>Gateway</b></h4>
+    <span><b>Name:</b> {{gateway.name}}</span>&nbsp; 
+    <span><b>Serial:</b> {{gateway.serial}}</span>&nbsp;
+    <span><b>IP address:</b> {{gateway.address}}</span>
+</div>
+<button class="button-new" mat-raised-button color="primary"  #tooltip="matTooltip"
+          matTooltip="New Peripheral"
+          [matTooltipPosition]="position.value"
+          matTooltipHideDelay="100"
+          [routerLink]="['/new-peripheral',gateway._id]">New</button>
+
+<button class="button-new" mat-raised-button color="accent"  #tooltip="matTooltip"
+          matTooltip="Back"
+          [matTooltipPosition]="position.value"
+          matTooltipHideDelay="100"
+          [routerLink]="['/gateways']">Back</button>
+
+<p *ngIf="peripheralsData.length <= 0" class="no-data">There is no peripheral added yet!</p>
+
+<div class="container" *ngIf="peripheralsData.length > 0">
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef> Peripheral ID </th>
+        <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="uid">
+        <th mat-header-cell *matHeaderCellDef> UID </th>
+        <td mat-cell *matCellDef="let element"> {{element.uid}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="vendor">
+        <th mat-header-cell *matHeaderCellDef> Vendor </th>
+        <td mat-cell *matCellDef="let element"> {{element.vendor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Created at </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'yyyy/MM/dd'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>        
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element; let i = index;">                    
+          <button mat-raised-button color="accent" (click)="deletePeripheral(i, element)">Delete</button>          
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

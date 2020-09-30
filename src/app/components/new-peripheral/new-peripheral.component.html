@@ -1,0 +1,48 @@
+<div class="new-peripheral-form">
+    <div class="title-group  esp-up">
+        <h1 class="mat-h1">New Peripheral</h1>
+        <mat-divider fxFlex="1 0"></mat-divider>
+    </div>
+
+
+    <form [formGroup]="peripheralForm" (ngSubmit)="submitPeripheralForm()" #resetPeripheralForm="ngForm" novalidate>
+        
+        <mat-card>
+        <div class="controlers-wrapper">
+            <!-- Vendor -->
+            <mat-form-field class="example-full-width">
+            <input matInput placeholder="Vendor" formControlName="vendor">
+            <mat-error *ngIf="handleError('vendor', 'required')">
+                You must provide a<strong>Vendor</strong>
+            </mat-error>
+            </mat-form-field>            
+
+             <!-- Status -->
+            <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select [(value)]="selectable" formControlName="status">
+                <mat-option [value]="sectioinArray" *ngFor="let sectioinArray of SectioinArray">{{sectioinArray}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="handleError('status', 'required')">
+                Status is required
+            </mat-error>
+            </mat-form-field>
+
+        </div>
+        </mat-card>
+        <!-- Submit & Reset -->
+        <mat-card>
+        <div class="full-wrapper button-wrapper">
+            <div class="button-wrapper">
+            <button mat-flat-button color="warn">Submit</button>
+            <button class="pull-right" mat-raised-button color="accent" 
+                    #tooltip="matTooltip"
+                    matTooltip="Return to list"
+                    [matTooltipPosition]="position.value"
+                    matTooltipHideDelay="100" [routerLink]="['/view-peripherals-gateway/',gatewayId]" >List</button>          
+            </div>
+        </div>
+        </mat-card>
+    </form>    
+</div>
